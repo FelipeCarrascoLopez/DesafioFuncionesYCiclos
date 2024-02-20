@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text">
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>                    
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text">
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje"></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="boton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const formulario = document.getElementById('formulario');
+    const nombreInput = document.getElementById('nombre');
+    const asuntoInput = document.getElementById('asunto');
+    const mensajeInput = document.getElementById('mensaje');
+    const regex = /^[a-zA-Z\s]+$/;
+
+    formulario.addEventListener('submit', function(event) {
+        event.preventDefault();
+        validateField(nombreInput, 'El nombre es requerido.', 'errorNombre');
+        validateField(asuntoInput, 'El Asunto es requerido.', 'errorAsunto');
+        validateField(mensajeInput, 'El mensaje es requerido.', 'errorMensaje');
+
+        if (isFormValid()) {
+            showSuccess('Mensaje enviado con exito!!!', 'resultado');
+        }
+    });
+
+    function validateField(field, errorMessage, errorClass) {
+        if (!regex.test(field.value.trim())) {
+            showError(errorMessage, errorClass);
+        } else {
+            clearError(errorClass);
+        }
+    }
+    function showError(message, elementClass) {
+        const errorElement = document.querySelector(`.${elementClass}`);
+        errorElement.textContent = message;
+    }
+    function clearError(elementClass) {
+        const errorElement = document.querySelector(`.${elementClass}`);
+        errorElement.textContent = '';
+    }
+    function showSuccess(message, elementClass) {
+        const successElement = document.querySelector(`.${elementClass}`);
+        successElement.textContent = message;
+    }
+    function isFormValid() {
+        return regex.test(nombreInput.value.trim()) && regex.test(asuntoInput.value.trim()) && regex.test(mensajeInput.value.trim());
+    }
+});
+    </script>
+</html>

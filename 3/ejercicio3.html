@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 3</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <h2>
+                Resultado: <span class="resultado"></span>
+            </h2>
+            <div>
+                <div>
+                    <div>
+                        <label for="valor1">Valor 1</label>
+                        <input id="valor1" type="text">
+                    </div>
+                    <div>
+                        <label for="valor2">Valor 2</label>
+                        <input id="valor2" type="text">
+                    </div>
+                    <div style="display: flex">
+                        <button id="btn-sumar" type="button">
+                            Sumar
+                        </button>
+                        <button id="btn-restar" type="button">
+                            Restar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const resultadoSpan = document.querySelector('.resultado');
+            const valor1Input = document.getElementById('valor1');
+            const valor2Input = document.getElementById('valor2');
+            const btnSumar = document.getElementById('btn-sumar');
+            const btnRestar = document.getElementById('btn-restar');
+
+            function sumar(a, b) {
+                return Number(a) + Number(b);
+            }
+
+            function restar(a, b) {
+                return Math.max(Number(a) - Number(b), 0); // Si el resultado es negativo, mostrar 0
+            }
+
+            btnSumar.addEventListener('click', function() {
+                const resultado = sumar(valor1Input.value, valor2Input.value);
+                resultadoSpan.textContent = resultado;
+            });
+            
+            btnRestar.addEventListener('click', function() {
+                const resultado = restar(valor1Input.value, valor2Input.value);
+                resultadoSpan.textContent = resultado;
+            });
+        });
+    </script>
+</body>
+
+</html>
